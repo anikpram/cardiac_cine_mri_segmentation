@@ -34,19 +34,24 @@ The 3D UNET archotecture is shown below in Figure 2. The network has architectur
 
 
 ## Description of Python Scripts
-trn_3DAE_edes.py : Training script for the 3D AE
+trn_3DAE.py : Training script for the 3D Autoencoder
 
-trn_3DUNET_edes.py : Training script for the 3D UNET
+trn_3DUNET.py : Training script for the 3D UNET
 
-tst_3DAE_edes.py : Testing script for the 3D AE
+tst_3DAE.py : Testing script for the 3D Autoencoder
 
-tst_3DUNET_edes.py : Testing script for the 3D UNET
+tst_3DUNET.py : Testing script for the 3D UNET
 
-Auto3D_D4.py : A script defining AE model
+Auto3D_D4.py : A script defining Autoencoder model
 
 UNET3D_D4.py : A script defining UNET model
 
-dataset_edes.py : A script for training, testing and validation dataset creation
+tst_dataset.py : A script for testing dataset creation
+
+train_val_dataset.py : A script for training and validation dataset creation
+
+The saved training models can be found on the google drive link: https://drive.google.com/drive/folders/1GdT2eqSDOmtiqchZ8pXj0oi0RAB3eMXO?usp=sharing
+
 
 ## Results
 I show results for End Diastolic (ED) and End Systolic (ES) frames of a normal person and a DCM (dilated myocardiopathy) patient. The result in Figure 3 is that of a normal patient and Figure 4 is the result of a DCM patient. The yellow region is Right ventricle (RV), light blue region is Left ventricle (LV) and the deep blue region is myocardium (MYO). The middle column respresents 3D AE segmentation while the right row shows 3D UNET segmentation and the left row shows ground truth segmentation by experts.
