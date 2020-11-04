@@ -54,11 +54,15 @@ I show results for End Diastolic (ED) and End Systolic (ES) frames of a normal p
 Analysis:
 
 NOR (normal person): It is evident from the figure below that the myocardium wall is much thicker for 3D AE segmentation compared to the ground truth. This leads to decrease in accuracy an Dice coefficient. On the other hand, UNET has captured the shape and thickness of myocardium better than AE. It can be due to the skipped connections preserving shape of it. The complex edges of the LV and RV are better captured by UNET than AE. The edges of LV and RV reported by 3D AE looks much smoother whereas UNET captures intricate variations in the boundaries.
+
+
 <img src="Result_NOR.jpg"  title="hover text">
 
 
 
 DCM (dilated myocardiopathy): There are similar observations from the figure below. The AE thickens the myocardium wall which is undesirable and reduces accuracy. Also the complex edges of the ventricles are better captured by UNET. The UNET preserves the intricate details in the myocardium boundaries whereas AE completely smoothens it like a circle. The RV region seems bigger in AE segmentation than the ground truth which might mislead the experts for ejection fraction calculation.
+
+
 <img src="Result_DCM.jpg"  title="hover text">
 
 
