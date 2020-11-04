@@ -30,7 +30,8 @@ The 3D Autoencoder archotecture is shown below in Figure 1. There are 15 layers 
 ### 3D UNET
 The 3D UNET archotecture is shown below in Figure 2. The network has architecture similar to 3D Autoencoder described above. It has 15 layers too with same number of trainable parameters. The difference with autoencoder is the skipped connection in black arrows. The encoding layer outputs are concatenated to the corresponding decoding layer outputs of similar size. The pooling and unpooling operations are same in this case. The UNET gives N=3 number of probability maps using softmax layer and then the pixels are assigned to the class with highest probability. The embedding of the downsampled outputs with upsampled outputs boosts performance over 3D autoencoder. This is because the global features of images are extracted by encoder through pooling operation which are combined with upsampling layers in decoder. The global features are preserved much better in this way.
 <img src="3DUNET.jpg"  title="hover text">
-\\\
+\
+\
 ## Description of Python Scripts
 trn_3DAE_edes.py : Training script for the 3D AE
 
