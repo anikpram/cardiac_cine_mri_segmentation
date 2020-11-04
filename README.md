@@ -21,3 +21,51 @@ HCM: Patients with hypertrophic cardiomyopathy, i.e. a normal cardiac function (
 ARV: Patients with abnormal right ventricle have a RV volume greater than 110 mL/m2 for men, and greater than 100 mL/m2 for women, or/and a RV ejection fraction below 40%. Almost every subject in this subgroup has a normal LV.
 
 
+## Architecture description
+To experiment with this dataset, we are looking at 3D UNET and 3D Autoencoder (AE) network architectures.
+### 3D Autoencoder
+The 3D Autoencoder archotecture is shown below in Figure 1. There are 15 layers represented by green pillars. Each green pillar is a convolution layer. The number below the pillars denote output channels of the layer. So, the input image has single channel that grows to 32 followed by 64 and all the way to 256 at the end of encoder. Similarly, the decodes grows it back to N=3 from 256. Here N=3 since we are segmenting 3 structures namely Left ventricle(LV), Right ventricle(RV) and myocardium. After getting N channel output, the network uses softmax layer to get N probability maps and then the class with higher probability is assigned to the pixel. Thus, the network learns N probability maps for eavery pixel in the volume. The network consists of 2 x 2 max pooling operation in the encoder block and 2 x 2 unpooling operation using nearest neighbour interpolation. These operations are indicated by different colored arrows shown here.
+
+### 3D UNET
+The 3D UNET archotecture is shown below in Figure 2. The network has architecture similar to 3D Autoencoder described above. It has 15 layers too with same number of trainable parameters. The difference with autoencoder is the skipped connection in black arrows. The encoding layer outputs are concatenated to the corresponding decoding layer outputs of similar size. The pooling and unpooling operations are same in this case. The UNET gives N=3 number of probability maps using softmax layer and then the pixels are assigned to the class with highest probability. The embedding of the downsampled outputs with upsampled outputs boosts performance over 3D autoencoder. This is because the global features of images are extracted by encoder through pooling operation which are combined with upsampling layers in decoder. The global features are preserved much better in this way.
+
+## Description of Python Scripts
+trn_3DAE_edes.py : Training script for the 3D AE
+
+trn_3DUNET_edes.py : Training script for the 3D UNET
+
+tst_3DAE_edes.py : Testing script for the 3D AE
+
+tst_3DUNET_edes.py : Testing script for the 3D UNET
+
+Auto3D_D4.py : A script defining AE model
+
+UNET3D_D4.py : A script defining UNET model
+
+dataset_edes.py : A script for training, testing and validation dataset creation
+
+## Results
+We show results for End Diastolic (ED) and End Systolic (ES) frames of a normal person and a DCM (dilated myocardiopathy) patient. The result in Figure 3 is that of a normal patient and Figure 4 is the result of a DCM patient. The yellow region is Right ventricle (RV), light blue region is Left ventricle (LV) and the deep blue region is myocardium (MYO). The middle column respresents 3D AE segmentation while the right row shows 3D UNET segmentation and the left row shows ground truth segmentation by experts.
+
+Analysis:
+
+Figure 3 (NOR: normal person): It is evident from Figure 3 that the myocardium wall is much thicker for 3D AE segmentation compared to the ground truth. This leads to decrease in accuracy an Dice coefficient. On the other hand, UNET has captured the shape and thickness of myocardium better than AE. It can be due to the skipped connections preserving shape of it. The complex edges of the LV and RV are better captured by UNET than AE. The edges of LV and RV reported by 3D AE looks much smoother whereas UNET captures intricate variations in the boundaries.
+
+Figure 4 (DCM: dilated myocardiopathy): There are similar observations from Figure 4. The AE thickens the myocardium wall which is undesirable and reduces accuracy. Also the complex edges of the ventricles are better captured by UNET. The UNET preserves the intricate details in the myocardium boundaries whereas AE completely smoothens it like a circle. The RV region seems bigger in AE segmentation than the ground truth which might mislead the experts for ejection fraction calculation.
+
+## Conclusion
+I did a comparative study of the segmentation (semantic classification) performance of the standard 3D UNET and 3D Autoencoder on cardiac time series CINE MRI. Although these two network architectures have been used for cardiac MRI segmentation before but those used to be on smaller datasets. I leveraged these networks for training and testing of their performance on a wide variety of subjects with five different possible cardiac abnormalities. It is more challenging task for both the networks since there is a lot of variation in the datasets from patient to patient in terms of contrast, location of heart structures of interest like left ventricle, right ventricle and myocardium.
+
+The cardiac MRI datasets also differed in contrast from patient to patient since they were scanned in different MRI scanners with different scanning parameters. Some of the patients had heart aligned vertically while some had aligned horizontally. So, there were several variations across the datasets and coupling those with augmentation strategies helped me to make both the networks robust and more generalizable for patients with various heart conditions scanned with different type of MRI scanners.
+
+After tuning hyperparameters and training on this large dataset I found UNET to be outperforming the autoencoder architecture. Both the networks have an encoder that down samples the input image and learns a lower dimensional vector representation of the family of such input images. This lower dimensional vector is upsampled in multiple layers and mapped to its corresponding ground truth label. Both have similar structures but UNET uses skipped connections from encoder to decoder to merge encoding information along with decoding operation. This gives performance boost over the Autoencoder.
+
+## References
+[1]: Baumgartner et al., 'An Exploration of 2D and 3D Deep Learning Techniques for Cardiac MR Image Segmentation', International Workshop on Statistical Atlases and Computational Models of the Heart, Springer 2017: https://link.springer.com/chapter/10.1007/978-3-319-75541-0_12
+
+[2]: Isensee et al., 'Automatic Cardiac Disease Assessment on cine-MRI via Time-Series Segmentation and Domain Specific Features', International Workshop on Statistical Atlases and Computational Models of the Heart, Springer 2017: https://link.springer.com/chapter/10.1007/978-3-319-75541-0_13
+
+[3]: Seo et al., 'Cardiac MRI Image Segmentation for Left Ventricle and Right Ventricle using Deep Learning', arXiv preprint: https://arxiv.org/ftp/arxiv/papers/1909/1909.08028.pdf
+
+[4]: ACDC Challenge Data: https://acdc.creatis.insa-lyon.fr/
+
