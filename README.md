@@ -25,9 +25,11 @@ ARV: Patients with abnormal right ventricle have a RV volume greater than 110 mL
 To experiment with this dataset, I am looking at 3D UNET and 3D Autoencoder (AE) network architectures.
 ### 3D Autoencoder
 The 3D Autoencoder archotecture is shown below in Figure 1. There are 15 layers represented by green pillars. Each green pillar is a convolution layer. The number below the pillars denote output channels of the layer. So, the input image has single channel that grows to 32 followed by 64 and all the way to 256 at the end of encoder. Similarly, the decodes grows it back to N=3 from 256. Here N=3 since I am segmenting 3 structures namely Left ventricle(LV), Right ventricle(RV) and myocardium. After getting N channel output, the network uses softmax layer to get N probability maps and then the class with higher probability is assigned to the pixel. Thus, the network learns N probability maps for eavery pixel in the volume. The network consists of 2 x 2 max pooling operation in the encoder block and 2 x 2 unpooling operation using nearest neighbour interpolation. These operations are indicated by different colored arrows shown here.
+<img src="3DAE.jpg"  title="hover text">
 
 ### 3D UNET
 The 3D UNET archotecture is shown below in Figure 2. The network has architecture similar to 3D Autoencoder described above. It has 15 layers too with same number of trainable parameters. The difference with autoencoder is the skipped connection in black arrows. The encoding layer outputs are concatenated to the corresponding decoding layer outputs of similar size. The pooling and unpooling operations are same in this case. The UNET gives N=3 number of probability maps using softmax layer and then the pixels are assigned to the class with highest probability. The embedding of the downsampled outputs with upsampled outputs boosts performance over 3D autoencoder. This is because the global features of images are extracted by encoder through pooling operation which are combined with upsampling layers in decoder. The global features are preserved much better in this way.
+<img src="3DUNET.jpg"  title="hover text">
 
 ## Description of Python Scripts
 trn_3DAE_edes.py : Training script for the 3D AE
