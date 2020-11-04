@@ -1,2 +1,2 @@
-# cardiac_cine_mri_segmentation
+# Cardiac CINE MRI Segmentation
  
