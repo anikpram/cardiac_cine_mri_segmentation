@@ -50,7 +50,7 @@ tst_dataset.py : A script for testing dataset creation
 
 train_val_dataset.py : A script for training and validation dataset creation
 
-The saved training models can be found on the google drive link: https://drive.google.com/drive/folders/1GdT2eqSDOmtiqchZ8pXj0oi0RAB3eMXO?usp=sharing
+The trained models can be found on the google drive link: https://drive.google.com/drive/folders/1GdT2eqSDOmtiqchZ8pXj0oi0RAB3eMXO?usp=sharing
 
 
 ## Results
