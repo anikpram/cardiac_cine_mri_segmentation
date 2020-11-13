@@ -34,21 +34,21 @@ The 3D UNET archotecture is shown below in Figure 2. The network has architectur
 
 
 ## Description of Python Scripts
-trn_3DAE.py : Training script for the 3D Autoencoder
+```trn_3DAE.py``` : Training script for the 3D Autoencoder
 
-trn_3DUNET.py : Training script for the 3D UNET
+```trn_3DUNET.py``` : Training script for the 3D UNET
 
-tst_3DAE.py : Testing script for the 3D Autoencoder
+```tst_3DAE.py``` : Testing script for the 3D Autoencoder
 
-tst_3DUNET.py : Testing script for the 3D UNET
+```tst_3DUNET.py``` : Testing script for the 3D UNET
 
-Auto3D_D4.py : A script defining Autoencoder model
+```Auto3D_D4.py``` : A script defining Autoencoder model
 
-UNET3D_D4.py : A script defining UNET model
+```UNET3D_D4.py``` : A script defining UNET model
 
-tst_dataset.py : A script for testing dataset creation
+```tst_dataset.py``` : A script for testing dataset creation
 
-train_val_dataset.py : A script for training and validation dataset creation
+```train_val_dataset.py``` : A script for training and validation dataset creation
 
 The trained models can be found on the google drive link: https://drive.google.com/drive/folders/1GdT2eqSDOmtiqchZ8pXj0oi0RAB3eMXO?usp=sharing
 
