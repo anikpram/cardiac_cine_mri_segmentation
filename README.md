@@ -34,6 +34,8 @@ The 3D UNET archotecture is shown below in Figure 2. The network has architectur
 
 
 ## Description of Python Scripts
+The codes have been written in python-3.7 using the Pytorch-v1.3.0 library.
+
 ```trn_3DAE.py``` : Training script for the 3D Autoencoder
 
 ```trn_3DUNET.py``` : Training script for the 3D UNET
