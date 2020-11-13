@@ -81,3 +81,6 @@ The cardiac MRI datasets also differed in contrast from patient to patient since
 
 After tuning hyperparameters and training on this large dataset I found UNET to be outperforming the autoencoder architecture. Both the networks have an encoder that down samples the input image and learns a lower dimensional vector representation of the family of such input images. This lower dimensional vector is upsampled in multiple layers and mapped to its corresponding ground truth label. Both have similar structures but UNET uses skipped connections from encoder to decoder to merge encoding information along with decoding operation. This gives performance boost over the Autoencoder.
 
+
+## Contact
+The code is meant for reproducible research. In case of any difficulty, please open an issue or directly email me at aniket-pramanik@uiowa.edu
